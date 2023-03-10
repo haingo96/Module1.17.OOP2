@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+    class Apple {
+        constructor() {
+            this.weight = 5
+        }
+
+        decrease = function () {
+            if (this.weight > 0) {
+                this.weight--
+            }
+        }
+
+        isEmpty = function () {
+            return this.weight === 0
+        }
+
+        getWeight = function () {
+            return this.weight
+        }
+    }
+
+    class Human {
+        constructor(name, gender, weight) {
+            this.name = name
+            this.gender = gender
+            this.weight = weight
+        }
+
+        isMale = function () {
+            return this.gender === 'Male'
+        }
+
+        setGender = function (gender) {
+            this.gender = gender
+        }
+
+        checkApple = function (Apple) {
+            return Apple.weight !== 0
+        }
+
+        eat = function (Apple) {
+            if (Apple.weight !== 0){
+                Apple.weight--
+                this.weight++
+            }
+        }
+
+        say = function (String) {
+            alert(String)
+        }
+
+        getName = function (){
+            return this.name
+        }
+
+        getWeight = function () {
+            return this.weight
+        }
+
+        setWeight = function (int) {
+            this.weight = int
+        }
+    }
+
+    let apple = new Apple()
+
+    let adam = new Human('Adam', 'Male', 80)
+    let eva = new Human('Eva', 'Female', 60)
+
+    adam.eat(apple)
+    eva.eat(apple)
+    adam.eat(apple)
+    eva.eat(apple)
+    adam.eat(apple)
+
+    console.log(apple.weight)
+
+    eva.eat(apple)
+
+    console.log(eva.weight)
+</script>
+</body>
+</html>
