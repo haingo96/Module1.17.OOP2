@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+        }
+
+        div.gameElement {
+            border-color: black;
+            border-style: solid;
+            border-width: 0.2px;
+            width: 10px;
+            height: 10px;
+            font-size: 5px;
+            text-align: center;
+            font-weight: bolder;
+            padding-top: 2px;
+        }
+
+        div.lineContainer {
+            display: flex;
+            height: 10px;
+            width: fit-content;
+        }
+    </style>
+</head>
+<body>
+<div id="gameContainer"></div>
+<script>
+    let initialChar = ''
+    let gameBoard = []
+    let turn = 0
+
+    displayGameBoard()
+
+    for (let i = 0; i < 20; i++) {
+        gameBoard[i] = []
+        for (let j = 0; j < 20; j++) {
+            gameBoard.push(gameBoard[i][j])
+        }
+    }
+
+    function displayGameBoard() {
+        for (let i = 0; i < 20; i++) {
+            initialChar += '<div class="lineContainer">'
+            for (let j = 0; j < 20; j++) {
+                initialChar += `<div class="gameElement" id="gameBoard[${i}][${j}]" onclick="inputValueGameBoard(${i},${j})"></div>`
+                document.getElementById('gameContainer').innerHTML = initialChar
+            }
+            initialChar += '</div>'
+            document.getElementById('gameContainer').innerHTML = initialChar
+        }
+    }
+
+    function inputValueGameBoard(row, col) {
+        if (turn % 2 !== 0) {
+            gameBoard[row][col] = 'X'
+            console.log(gameBoard[0][0])
+            document.getElementById(`gameBoard[${row}][${col}]`).innerText = 'X'
+            document.getElementById(`gameBoard[${row}][${col}]`).style.color = 'red'
+        }else {
+            gameBoard[row][col] = 'O'
+            console.log(gameBoard[0][0])
+            document.getElementById(`gameBoard[${row}][${col}]`).innerText = 'O'
+            document.getElementById(`gameBoard[${row}][${col}]`).style.color = 'blue'
+        }
+        turn++
+    }
+
+
+</script>
+</body>
+</html>
