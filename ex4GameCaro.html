@@ -25,6 +25,7 @@
             display: flex;
             height: 10px;
             width: fit-content;
+            margin: auto;
         }
     </style>
 </head>
@@ -35,14 +36,14 @@
     let gameBoard = []
     let turn = 0
 
-    displayGameBoard()
-
     for (let i = 0; i < 20; i++) {
         gameBoard[i] = []
         for (let j = 0; j < 20; j++) {
             gameBoard.push(gameBoard[i][j])
         }
     }
+
+    displayGameBoard()
 
     function displayGameBoard() {
         for (let i = 0; i < 20; i++) {
@@ -62,16 +63,149 @@
             console.log(gameBoard[0][0])
             document.getElementById(`gameBoard[${row}][${col}]`).innerText = 'X'
             document.getElementById(`gameBoard[${row}][${col}]`).style.color = 'red'
-        }else {
+        } else {
             gameBoard[row][col] = 'O'
             console.log(gameBoard[0][0])
             document.getElementById(`gameBoard[${row}][${col}]`).innerText = 'O'
             document.getElementById(`gameBoard[${row}][${col}]`).style.color = 'blue'
         }
+        checkGameBoard(gameBoard)
         turn++
     }
 
+    function checkRow(gameBoard) {
+        for (let i = 0; i < 20; i++) {
+            for (let j = 0; j < 20; j++) {
+                if (
+                    (gameBoard[i][j] === 'X' || gameBoard[i][j] === 'O')
+                    && gameBoard[i][j] === gameBoard[i][j + 1]
+                    && gameBoard[i][j + 1] === gameBoard[i][j + 2]
+                    && gameBoard[i][j + 2] === gameBoard[i][j + 3]
+                    && gameBoard[i][j + 3] === gameBoard[i][j + 4]
+                ) {
+                    if (gameBoard[i][j] === 'X') {
+                        alert('X won!')
+                    } else {
+                        alert('O won!')
+                    }
+                }
+            }
+        }
+    }
 
+    function checkCol(gameBoard) {
+        for (let j = 0; j < 20; j++) {
+            for (let i = 0; i < 20; i++) {
+                if (
+                    (gameBoard[i][j] === 'X' || gameBoard[i][j] === 'O')
+                    && gameBoard[i][j] === gameBoard[i + 1][j]
+                    && gameBoard[i + 1][j] === gameBoard[i + 2][j]
+                    && gameBoard[i + 2][j] === gameBoard[i + 3][j]
+                    && gameBoard[i + 3][j] === gameBoard[i + 4][j]
+                ) {
+                    if (gameBoard[i][j] === 'X') {
+                        alert('X won!')
+                    } else {
+                        alert('O won!')
+                    }
+                }
+            }
+        }
+    }
+
+    function checkUpperRightDownDiagonal(gameBoard) {
+        for (let i = 0, j = 0; j < 20; j++) {
+            for (let m = i, n = j; m < 20; m++, n++) {
+                if (
+                    (gameBoard[m][n] === 'X' || gameBoard[m][n] === 'O')
+                    && gameBoard[m][n] === gameBoard[m + 1][n + 1]
+                    && gameBoard[m + 1][n + 1] === gameBoard[m + 2][n + 2]
+                    && gameBoard[m + 2][n + 2] === gameBoard[m + 3][n + 3]
+                    && gameBoard[m + 3][n + 3] === gameBoard[m + 4][n + 4]
+                ) {
+                    if (gameBoard[m][n] === 'X') {
+                        alert('X won!')
+                    } else {
+                        alert('O won!')
+                    }
+                }
+            }
+        }
+    }
+
+    function checkLowerRightDownDiagonal(gameBoard) {
+        for (let i = 1, j = 0; i < 20; i++) {
+            for (let m = i, n = j; m < 20; m++, n++) {
+                if ((gameBoard[m][n] === 'X' || gameBoard[m][n] === 'O')
+                    && gameBoard[m][n] === gameBoard[m + 1][n + 1]
+                    && gameBoard[m + 1][n + 1] === gameBoard[m + 2][n + 2]
+                    && gameBoard[m + 2][n + 2] === gameBoard[m + 3][n + 3]
+                    && gameBoard[m + 3][n + 3] === gameBoard[m + 4][n + 4]
+                ) {
+                    if (gameBoard[m][n] === 'X') {
+                        alert('X won!')
+                    } else {
+                        alert('O won!')
+                    }
+                }
+            }
+        }
+    }
+
+    function checkRightDownDiagonal(gameBoard) {
+        checkUpperRightDownDiagonal(gameBoard)
+        checkLowerRightDownDiagonal(gameBoard)
+    }
+
+    function checkUpperLeftDownDiagonal(gameBoard) {
+        for (let i = 0, j = 19; j >= 0; j--) {
+            for (let k = i, l = j; l >= 0; k++, l--) {
+                if ((gameBoard[k][l] === 'X' || gameBoard[k][l] === 'O')
+                    && gameBoard[k][l] === gameBoard[k + 1][l - 1]
+                    && gameBoard[k + 1][l - 1] === gameBoard[k + 2][l - 2]
+                    && gameBoard[k + 2][l - 2] === gameBoard[k + 3][l - 3]
+                    && gameBoard[k + 3][l - 3] === gameBoard[k + 4][l - 4]
+                ) {
+                    if (gameBoard[k][l] === 'X') {
+                        alert('X won!')
+                    } else {
+                        alert('O won!')
+                    }
+                }
+            }
+        }
+    }
+
+    function checkLowerLeftDownDiagonal(gameBoard) {
+        for (let i = 1, j = 19; i < 20; i++) {
+            for (let k = i, l = j; k < 20; k++, l--) {
+                if ((gameBoard[k][l] === 'X' || gameBoard[k][l] === 'O')
+                    && gameBoard[k][l] === gameBoard[k + 1][l - 1]
+                    && gameBoard[k + 1][l - 1] === gameBoard[k + 2][l - 2]
+                    && gameBoard[k + 2][l - 2] === gameBoard[k + 3][l - 3]
+                    && gameBoard[k + 3][l - 3] === gameBoard[k + 4][l - 4]
+                ) {
+                    if (gameBoard[k][l] === 'X') {
+                        alert('X won!')
+                    } else {
+                        alert('O won!')
+                    }
+                }
+            }
+        }
+    }
+
+    function checkLeftDownDiagonal(gameBoard) {
+        checkUpperLeftDownDiagonal(gameBoard)
+        checkLowerLeftDownDiagonal(gameBoard)
+    }
+
+    function checkGameBoard(gameBoard) {
+        checkRow(gameBoard)
+        checkCol(gameBoard)
+        checkRightDownDiagonal(gameBoard)
+        checkLeftDownDiagonal(gameBoard)
+    }
 </script>
 </body>
 </html>
